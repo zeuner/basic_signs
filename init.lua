@@ -60,12 +60,10 @@ end
 for _, onpole in ipairs({"", "_onpole"}) do
 
 	local nci = nil
-	local on_rotate = signs_lib.wallmounted_rotate
 	local pole_mount_tex = nil
 
 	if onpole == "_onpole" then
 		nci = 1
-		on_rotate = nil
 		pole_mount_tex = "signs_lib_pole_mount.png" -- the metal straps on back, if needed
 	end
 
@@ -106,7 +104,7 @@ for _, onpole in ipairs({"", "_onpole"}) do
 		on_receive_fields = signs_lib.receive_fields,
 		on_punch = signs_lib.update_sign,
 		can_dig = signs_lib.can_modify,
-		on_rotate = on_rotate,
+		on_rotate = signs_lib.wallmounted_rotate,
 		number_of_lines = signs_lib.standard_lines,
 		horiz_scaling = signs_lib.standard_hscale,
 		vert_scaling = signs_lib.standard_vscale,
@@ -152,7 +150,7 @@ for _, onpole in ipairs({"", "_onpole"}) do
 			after_place_node = signs_lib.after_place_node,
 			on_receive_fields = signs_lib.receive_fields,
 			on_punch = signs_lib.update_sign,
-			on_rotate = on_rotate,
+			on_rotate = signs_lib.facedir_rotate,
 			number_of_lines = signs_lib.standard_lines,
 			horiz_scaling = signs_lib.standard_hscale,
 			vert_scaling = signs_lib.standard_vscale,
@@ -203,7 +201,7 @@ minetest.register_node("basic_signs:yard_sign", {
 	after_place_node = signs_lib.after_place_node,
 	on_receive_fields = signs_lib.receive_fields,
 	on_punch = signs_lib.update_sign,
-	on_rotate = on_rotate,
+	on_rotate = signs_lib.facedir_rotate,
 	number_of_lines = signs_lib.standard_lines,
 	horiz_scaling = signs_lib.standard_hscale,
 	vert_scaling = signs_lib.standard_vscale,
@@ -247,7 +245,7 @@ minetest.register_node("basic_signs:hanging_sign", {
 	after_place_node = signs_lib.after_place_node,
 	on_receive_fields = signs_lib.receive_fields,
 	on_punch = signs_lib.update_sign,
-	on_rotate = on_rotate,
+	on_rotate = signs_lib.facedir_rotate,
 	number_of_lines = signs_lib.standard_lines,
 	horiz_scaling = signs_lib.standard_hscale,
 	vert_scaling = signs_lib.standard_vscale,
