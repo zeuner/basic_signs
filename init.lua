@@ -165,7 +165,7 @@ for _, onpole in ipairs({"", "_onpole"}) do
 				mesh = "signs_lib_standard_wall_sign_entity"..onpole..".obj",
 				yaw = signs_lib.standard_yaw
 			},
-			drop = "signs:sign_wall_steel_"..color[1]
+			drop = "basic_signs:sign_wall_steel_"..color[1]
 		})
 		table.insert(signs_lib.lbm_restore_nodes, "basic_signs:sign_wall_steel_"..color[1]..onpole)
 		table.insert(signs_lib.lbm_restore_nodes, "signs:sign_wall_"..color[1]..onpole)
