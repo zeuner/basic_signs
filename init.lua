@@ -61,6 +61,7 @@ signs_lib.register_sign("basic_signs:sign_wall_locked", {
 	inventory_image = "basic_signs_sign_wall_locked_inv.png",
 	locked = true,
 	entity_info = "standard",
+	allow_hanging = true
 })
 
 minetest.register_alias("locked_sign:sign_wall_locked", "basic_signs:sign_wall_locked")
@@ -98,6 +99,7 @@ for i, color in ipairs(sign_colors) do
 			mesh = "signs_lib_standard_wall_sign_entity.obj",
 			yaw = signs_lib.standard_yaw
 		},
+		allow_hanging = true
 	})
 
 	table.insert(signs_lib.lbm_restore_nodes, "signs:sign_wall_"..color[1])
