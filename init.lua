@@ -9,6 +9,14 @@ dofile(basic_signs.path .. "/crafting.lua")
 local S, NS = dofile(basic_signs.path .. "/intllib.lua")
 basic_signs.gettext = S
 
+function basic_signs.check_for_floor(pointed_thing)
+	if pointed_thing.above.x == pointed_thing.under.x
+		  and pointed_thing.above.z == pointed_thing.under.z
+		  and pointed_thing.above.y > pointed_thing.under.y then
+		return true
+	end
+end
+
 function basic_signs.determine_sign_type(pos, placer, itemstack, pointed_thing)
 	local playername = placer:get_player_name()
 	local pt_name = minetest.get_node(pointed_thing.under).name
@@ -19,24 +27,21 @@ function basic_signs.determine_sign_type(pos, placer, itemstack, pointed_thing)
 		return itemstack
 	end
 
+	local newparam2 = minetest.dir_to_facedir(placer:get_look_dir())
+
 	if minetest.registered_nodes[pt_name] and
 	   minetest.registered_nodes[pt_name].on_rightclick and
 	   not placer:get_player_control().sneak then
 		return minetest.registered_nodes[pt_name].on_rightclick(pos, node, placer, itemstack, pointed_thing)
 	elseif signs_lib.check_for_pole(pos, pointed_thing) then
-		minetest.swap_node(pos, {name = "default:sign_wall_wood_onpole", param2 = node.param2})
-	else
-		local lookdir = placer:get_look_dir()
-		print(dump(lookdir))
-		local newparam2 = minetest.dir_to_facedir(lookdir)
-
-		if node.param2 == 0 then
-			minetest.swap_node(pos, {name = "basic_signs:hanging_sign",  param2 = newparam2})
-		elseif node.param2 == 1 then
-			minetest.swap_node(pos, {name = "basic_signs:yard_sign",     param2 = newparam2})
-		end
-		signs_lib.update_sign(pos)
+		minetest.swap_node(pos, {name = "default:sign_wall_wood_onpole",  param2 = node.param2})
+	elseif signs_lib.check_for_ceiling(pointed_thing) then
+		minetest.swap_node(pos, {name = "default:sign_wall_wood_hanging", param2 = newparam2})
+	elseif basic_signs.check_for_floor(pointed_thing) then
+		minetest.swap_node(pos, {name = "basic_signs:yard_sign",          param2 = newparam2})
 	end
+	signs_lib.update_sign(pos)
+
 	if not creative.is_enabled_for(playername) then
 		itemstack:take_item()
 	end
@@ -118,27 +123,5 @@ signs_lib.register_sign("basic_signs:yard_sign", {
 	allow_onpole = false
 })
 
-signs_lib.register_sign("basic_signs:hanging_sign", {
-	description = "Wooden sign, hanging",
-	paramtype2 = "facedir",
-	selection_box = signs_lib.make_selection_boxes(35, 32, false, 0, 3, -18.5, true),
-	mesh = "basic_signs_hanging_sign.obj",
-	tiles = {
-		"signs_lib_sign_wall_wooden.png",
-		"signs_lib_sign_wall_wooden_edges.png",
-		"basic_signs_ceiling_hangers.png"
-	},
-	inventory_image = "default_sign_wood.png",
-	entity_info = {
-		mesh = "basic_signs_hanging_sign_entity.obj",
-		yaw = signs_lib.standard_yaw
-	},
-	drop = "default:sign_wall_wood",
-	allow_onpole = false
-})
-
 table.insert(signs_lib.lbm_restore_nodes, "signs:sign_yard")
-table.insert(signs_lib.lbm_restore_nodes, "signs:sign_hanging")
 minetest.register_alias("signs:sign_yard", "basic_signs:yard_sign")
-minetest.register_alias("signs:sign_hanging", "basic_signs:hanging_sign")
-
