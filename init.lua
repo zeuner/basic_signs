@@ -74,6 +74,7 @@ signs_lib.register_sign("basic_signs:sign_wall_locked", {
 	entity_info = "standard",
 	allow_hanging = true,
 	allow_widefont = true,
+	allow_onpole = true,
 	allow_onpole_horizontal = true
 })
 
@@ -91,6 +92,7 @@ signs_lib.register_sign("basic_signs:sign_wall_glass", {
 	groups = {cracky = 3, oddly_breakable_by_hand = 3},
 	allow_hanging = true,
 	allow_widefont = true,
+	allow_onpole = true,
 	allow_onpole_horizontal = true,
 	use_texture_alpha = true,
 })
@@ -109,6 +111,7 @@ signs_lib.register_sign("basic_signs:sign_wall_obsidian_glass", {
 	groups = {cracky = 3},
 	allow_hanging = true,
 	allow_widefont = true,
+	allow_onpole = true,
 	allow_onpole_horizontal = true,
 	use_texture_alpha = true,
 })
@@ -151,6 +154,7 @@ for i, color in ipairs(sign_colors) do
 		},
 		allow_hanging = true,
 		allow_widefont = true,
+		allow_onpole = true,
 		allow_onpole_horizontal = true
 	})
 
@@ -175,7 +179,6 @@ signs_lib.register_sign("basic_signs:yard_sign", {
 	},
 	groups = wgroups,
 	drop = "default:sign_wall_wood",
-	allow_onpole = false,
 	allow_widefont = true
 })
 
