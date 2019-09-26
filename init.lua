@@ -77,6 +77,29 @@ signs_lib.register_sign("basic_signs:sign_wall_obsidian_glass", {
 
 minetest.register_alias("locked_sign:sign_wall_locked", "basic_signs:sign_wall_locked")
 
+signs_lib.register_sign("basic_signs:sign_wall_plastic", {
+	description = S("Plastic Sign"),
+	yard_mesh = "signs_lib_standard_sign_yard_two_sticks.obj",
+	tiles = {
+		"basic_signs_sign_wall_plastic.png",
+		"basic_signs_sign_wall_plastic_edges.png",
+		"basic_signs_pole_mount_plastic.png",
+		nil,
+		"default_steel_block.png" -- the sticks on back of the yard sign model
+	},
+	inventory_image = "basic_signs_sign_wall_plastic_inv.png",
+	default_color = "0",
+	entity_info = "standard",
+	sounds = default.node_sound_leaves_defaults(),
+	groups = {snappy = 3, flammable = 2},
+	allow_hanging = true,
+	allow_widefont = true,
+	allow_onpole = true,
+	allow_onpole_horizontal = true,
+	allow_yard = true,
+	use_texture_alpha = true,
+})
+
 -- array : color, translated color, default text color
 
 local sign_colors = {
